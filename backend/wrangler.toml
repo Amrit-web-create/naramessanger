@@ -1,0 +1,35 @@
+name = "nara-api"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+[vars]
+APP_NAME = "Nara"
+# Comma separated list of frontend origins allowed to call this API.
+ALLOWED_ORIGINS = "http://localhost:8080,https://YOUR-APP.vercel.app"
+# Verified sender in Resend, e.g. "Nara <verify@yourdomain.com>"
+FROM_EMAIL = "Nara <onboarding@resend.dev>"
+# Set to "true" ONLY for local testing: returns the OTP in the API response.
+DEV_ECHO_OTP = "false"
+# Email the user when they receive a message while offline (throttled, 1/hour/user).
+NOTIFY_EMAIL = "true"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "nara"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "nara-media"
+
+[[durable_objects.bindings]]
+name = "HUB"
+class_name = "Hub"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Hub"]
+
+# Hourly cleanup: expired stories, OTPs, sessions.
+[triggers]
+crons = ["0 * * * *"]

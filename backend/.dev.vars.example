@@ -1,0 +1,4 @@
+OTP_PEPPER=change-me-to-a-long-random-string
+MEDIA_SECRET=change-me-to-another-long-random-string
+DEV_ECHO_OTP=true
+# RESEND_API_KEY=

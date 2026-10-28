@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #0b1210;
+  --color-surface: #14201a;
+  --color-surface-2: #1c2c24;
+  --color-elevated: #24362c;
+  --color-fg: #e7f0ea;
+  --color-muted: #93a69a;
+  --color-faint: #6d8176;
+  --color-primary: #2fbf78;
+  --color-ink: #062117;
+  --color-line: #2a3d33;
+  --color-bubble-in: #1a2822;
+  --color-bubble-out: #1c5c3e;
+  --color-danger: #e25b4c;
+  --color-scrim: #06110c;
+  --color-on-scrim: #f6f8f6;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+  --shadow-sheet: 0 18px 50px rgb(6 17 12 / 0.35);
+  --radius-card: 1.25rem;
+}
+
+[data-theme="paper"] {
+  --color-canvas: #efeae2;
+  --color-surface: #f7f4ee;
+  --color-surface-2: #e7e1d6;
+  --color-elevated: #fffdf8;
+  --color-fg: #1c241f;
+  --color-muted: #5c6b63;
+  --color-faint: #7d8a82;
+  --color-primary: #157a49;
+  --color-ink: #f4fff8;
+  --color-line: #ddd4c6;
+  --color-bubble-in: #ffffff;
+  --color-bubble-out: #d7f0e2;
+  --color-danger: #c2463a;
+  --color-scrim: #102018;
+  --color-on-scrim: #f6f8f6;
+  --shadow-sheet: 0 18px 50px rgb(28 36 31 / 0.16);
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-canvas);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-primary) 35%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 560;
+  letter-spacing: 0.08em;
+}
+
+.wallpaper {
+  background-color: var(--color-canvas);
+  background-image:
+    radial-gradient(
+      ellipse at 12% 0%,
+      color-mix(in oklab, var(--color-primary) 14%, transparent),
+      transparent 48%
+    ),
+    radial-gradient(
+      circle,
+      color-mix(in oklab, var(--color-fg) 8%, transparent) 1px,
+      transparent 1.4px
+    );
+  background-size: auto, 18px 18px;
+}
+
+.scroll-none {
+  scrollbar-width: none;
+}
+
+.scroll-none::-webkit-scrollbar {
+  display: none;
+}
+
+.otp-input {
+  letter-spacing: 0.55em;
+  font-variant-numeric: tabular-nums;
+  text-indent: 0.55em;
+}
+
+.nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.safe-bottom {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.rise {
+  animation: rise 480ms ease-out both;
+}
+
+.rise-2 {
+  animation-delay: 90ms;
+}
+
+.rise-3 {
+  animation-delay: 170ms;
+}
+
+.rise-4 {
+  animation-delay: 250ms;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  30% {
+    transform: translateX(-7px);
+  }
+  70% {
+    transform: translateX(7px);
+  }
+}
+
+.shake {
+  animation: shake 280ms ease-in-out;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2.2s ease-out infinite;
+}
+
+.pulse-ring-delay {
+  animation-delay: 0.7s;
+}
+
+@keyframes blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+.typing-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--color-muted);
+  animation: blink 1s infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes wave {
+  from {
+    transform: scaleY(0.45);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.wave-bar {
+  transform-origin: bottom;
+}
+
+.wave-on {
+  animation: wave 0.8s ease-in-out infinite alternate;
+}
+
+.wave-on:nth-child(odd) {
+  animation-delay: 0.14s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .shake,
+  .pulse-ring,
+  .typing-dot,
+  .wave-on {
+    animation: none;
+  }
+}
